@@ -23,10 +23,10 @@ A simple full-stack web application for managing multiple-choice quiz questions 
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/quiz-question-manager.git
+git clone https://github.com/Lokesh1935/crud-quiz-manager.git
 
 # Navigate into the project directory
-cd quiz-question-manager
+cd crud-quiz-manager
 
 # Install dependencies
 npm install
