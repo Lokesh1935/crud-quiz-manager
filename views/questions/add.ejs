@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head.ejs') %>
+    
+    <body class="form-body">
+        <%- include('../partials/nav.ejs') %>
+
+        <h1> Add New Question </h1>
+
+        <div class="form-container">
+            <form action="/questions" method="post">
+                <label for="topic"> Topic </label>
+                <input id="topic" type="text" required name="topic">
+                <label for="question"> Question </label>
+                <textarea type="text" id="question" required name="question"></textarea>
+                <label for="option1"> Option1 </label>
+                <input id="option1" type="text" required name="option1">
+                <label for="option2"> Option2 </label>
+                <input id="option2" type="text" required name="option2">
+                <label for="option3"> Option3 </label>
+                <input id="option3" type="text" required name="option3">
+                <label for="ans"> Ans </label>
+                <input id="ans" required name="ans">
+                <div class="form-buttons">
+                    <button type="button"  onclick="window.location.href='/'"> Cancel </button>
+                    <button type="submit"> Submit </button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            window.addEventListener('pageshow', function (event) {
+                if (event.persisted) {
+                    window.location.reload();
+                }
+            });
+        </script>
+    </body>
+</html>

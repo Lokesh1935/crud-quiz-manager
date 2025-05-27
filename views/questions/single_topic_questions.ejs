@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <%- include('../partials/head.ejs') %>
+
+    <body class="single-topic-body">
+        <%- include('../partials/nav.ejs') %> 
+
+        <h2> <%= title.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') %> 
+             (<%= count %>) 
+        </h2>
+        
+        <% if(questions.length > 0) { %>
+        <% questions.forEach( (question) => {  %>
+            <div class="single-topic">
+                <a href="/questions/<%= title %>/<%= question._id %>">
+                    <p> <strong> Question: </strong> <%= question.question %></p>
+                    <p> <strong> Ans: </strong> <%= question.ans %> </p>
+                </a>
+            </div>
+        <% }) %>
+        <% } else { %>
+            <div class="questions-not-found">
+                <h3>No Questions Available</h3>
+                <p>It seems there are no questions added under this topic yet.</p>
+                <a class="add-link" href="/questions/add">Add a Question</a>
+            </div>
+        <% } %>
+
+        <script>
+            window.addEventListener('pageshow', function (event) {
+                if (event.persisted) {
+                window.location.reload();
+                }
+            });
+        </script>
+    </body>
+</html>

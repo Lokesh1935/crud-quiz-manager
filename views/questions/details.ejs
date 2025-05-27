@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <%- include("../partials/head.ejs") %>
+
+    <body class="single-question-body">
+        <%- include("../partials/nav.ejs") %>
+        <h2>
+            <%= question.topic.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') %> %> 
+        </h2>
+        
+        <div class="single-question">
+            <h3> <%= question.question %> </h3>
+            <h4> (a) <%= question.option1 %> </h4>
+            <h4> (b) <%= question.option2 %> </h4>
+            <h4> (c) <%= question.option3 %> </h4>
+            <h4> Ans: <%= question.ans %> </h4>
+        </div>
+        <div class="details-buttons">
+            <button class="update" data-topic="<%= question.topic %>" data-id="<%= question._id %>"> Update </button>
+            <button class="delete" data-topic="<%= question.topic %>" data-id="<%= question._id %>"> Delete </button>
+        </div>
+
+
+        <script>
+            const deleteButton = document.querySelector('button.delete');
+
+            deleteButton.addEventListener("click", (event) => {
+                const endpoint = `/questions/${deleteButton.dataset.topic}/${deleteButton.dataset.id}`;
+
+                fetch(endpoint,{
+                    method: 'DELETE'
+                })
+                .then((response) => response.json())
+                .then((data) => window.history.back())
+                .catch((error) => {
+                    console.log(error);
+                })
+            })
+        </script>
+
+        <script>
+            const updateButton = document.querySelector('button.update');
+            updateButton.addEventListener("click", (event) => {
+                window.location.href = `/questions/${updateButton.dataset.topic}/${updateButton.dataset.id}/update`;
+            })
+        </script>
+
+        <script>
+            window.addEventListener('pageshow', function (event) {
+                if (event.persisted) {
+                window.location.reload();
+                }
+            });
+        </script>
+    </body>
+</html>
