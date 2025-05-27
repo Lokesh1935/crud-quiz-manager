@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head.ejs') %>
+
+    <body class="form-body">
+        <h1 class="update-form-h1"> Update Question </h1>
+
+        <div class="form-container">
+            <form id="updateForm">
+                <label for="topic"> Topic </label>
+                <input id="topic" type="text" required name="topic" value="<%= question.topic %>">
+
+                <label for="question"> Question </label>
+                <textarea id="question" required name="question"><%= question.question %></textarea>
+
+                <label for="option1"> Option1 </label>
+                <input id="option1" type="text" required name="option1" value="<%= question.option1 %>">
+
+                <label for="option2"> Option2 </label>
+                <input id="option2" type="text" required name="option2" value="<%= question.option2 %>">
+
+                <label for="option3"> Option3 </label>
+                <input id="option3" type="text" required name="option3" value="<%= question.option3 %>">
+
+                <label for="ans"> Ans </label>
+                <input id="ans" type="text" required name="ans" value="<%= question.ans %>">
+
+                <div class="form-buttons">
+                    <button id="cancel" type="button" onclick="window.location.href=window.history.back();">Cancel</button>
+                    <button id="submit" type="submit">Update</button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            document.getElementById('updateForm').addEventListener('submit', async (e) => {
+                console.log("Enter submit");
+                e.preventDefault();
+                const formData = {
+                    topic: document.getElementById('topic').value,
+                    question: document.getElementById('question').value,
+                    option1: document.getElementById('option1').value,
+                    option2: document.getElementById('option2').value,
+                    option3: document.getElementById('option3').value,
+                    ans: document.getElementById('ans').value
+                };
+
+                console.log(formData);
+
+                const endpoint = `/questions/<%= question.topic %>/<%= question._id %>`;
+
+                try {
+                    const response = await fetch(endpoint, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    const result = await response.json();
+                        // if (document.referrer && document.referrer !== window.location.href) {
+                            window.history.back();
+                        // } else {
+                        //     window.location.href = '/';
+                        // }
+                } catch (error) {
+                    console.log(error);
+                }
+            });
+        </script>
+
+        <script>
+            document.getElementById('cancel').addEventListener('click', (e) => {
+                window.history.back();
+            });
+        </script>
+
+        <script>
+            window.addEventListener('pageshow', function (event) {
+                if (event.persisted) {
+                    window.location.reload();
+                }
+            });
+        </script>
+    </body>
+</html>
+

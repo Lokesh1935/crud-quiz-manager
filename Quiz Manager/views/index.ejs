@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+
+    <body>
+        <%- include('./partials/nav.ejs') %>
+
+        <div class="container">
+            <header class="main-header">
+                <h1>Question Bank</h1>
+                <p class="subtitle">Organized by Topics</p>
+                <p class="question-count">Total Questions: <strong><%= count %></strong></p>
+            </header>
+
+            <% if (topics.length > 0) { %>
+                <section class="topics-section">
+                    <h2 class="section-title">Topics (<%= topics.length %>)</h2>
+                    <div class="topics-grid">
+                        <% topics.forEach((topic) => { %>
+                            <a class="topic-card" href="/questions/<%= topic._id %>">
+                                <h3>
+                                    <%= topic._id.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') %>
+                                </h3>
+                                <p><%= topic.count %> Question<%= topic.count > 1 ? 's' : '' %></p>
+                            </a>
+                        <% }) %>
+                    </div>
+                </section>
+            <% } else { %>
+                <h2>No Topics Available Yet</h2>
+            <% } %>
+        </div>
+
+        <script>
+            window.addEventListener('pageshow', function (event) {
+                if (event.persisted) {
+                    window.location.reload();
+                }
+            });
+        </script>
+    </body>
+</html>
