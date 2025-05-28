@@ -17,7 +17,7 @@
                     <h2 class="section-title">Topics (<%= topics.length %>)</h2>
                     <div class="topics-grid">
                         <% topics.forEach((topic) => { %>
-                            <a class="topic-card" href="/questions/<%= topic._id %>">
+                            <a class="topic-card" href="/questions/<%= topic._id %>/">
                                 <h3>
                                     <%= topic._id.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') %>
                                 </h3>
